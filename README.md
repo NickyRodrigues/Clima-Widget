@@ -4,7 +4,7 @@ Projeto Pessoal para estudos de tecnologias WEB e consumo de APIs.
 </p>
 <br>
 <p align="center">
-  <img alt="Layout Clima Atual" src="./github/preview.jpg" width="100%">
+  <img alt="Layout Clima Atual" src="https://github.com/NickyRodrigues/Clima-Widget/blob/3d225693ed4cc6850b78202f14e0b59aa84490ac/clima.png" width="100%">
 </p>
 
 ## 🛠 Tecnologias
