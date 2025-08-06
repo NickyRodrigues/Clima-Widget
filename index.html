@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima Atual</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #0C1B33;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+        }
+        .weather {
+            text-align: center;
+        }
+        .temperature {
+            font-size: 3.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        img.icon {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather" id="weather">
+        Carregando clima...
+    </div>
+
+    <script>
+        const API_KEY = 'cd7d5e1a6e97cf4d3fd755b4c20bec7f';
+        const CITY = 'Vila Velha';
+        
+        async function getWeather() {
+            try {
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric&lang=pt_br`);
+                const data = await response.json();
+                
+                if (data.cod === 200) {
+                    const temp = Math.round(data.main.temp);
+                    const icon = data.weather[0].icon;
+                    const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+
+                    document.getElementById('weather').innerHTML = `
+                        <div class="temperature">
+                            ${temp}°C <img src="${iconUrl}" alt="ícone do clima" class="icon" />
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Erro na resposta da API');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('weather').innerText = 'Erro ao carregar clima';
+            }
+        }
+
+        // Carrega imediatamente
+        getWeather();
+
+        // Atualiza a cada 15 segundos
+        setInterval(getWeather, 15000);
+    </script>
+</body>
+</html> 
